@@ -4,16 +4,17 @@
 from data_structure import BinaryTree
 
 
-def binary_tree_pre_order_recursion(node):
+def binary_tree_pre_order_recursion(node, record=[]):
     """
     前序遍历递归，根左右
-    :param node:
-    :return:
     """
     if node:
         print(node.root, end=', ')
+        record.append(node.root)
         binary_tree_pre_order_recursion(node.left)
         binary_tree_pre_order_recursion(node.right)
+
+    return record
 
 
 def binary_tree_pre_order_nonrecursion(node):
@@ -22,22 +23,24 @@ def binary_tree_pre_order_nonrecursion(node):
     1. 利用栈，对每一个结点，先输出结点内容；
     2. 若右子树不为空，右子树压栈；
     3. 若左子树不为空，左子树压栈。
-    :param node:
-    :return:
     """
     if node is None:
         return
     stack = [node]
+    record = []
     while stack:
         cur = stack.pop()
         print(cur.root, end=', ')
+        record.append(cur.root)
         if cur.right:
             stack.append(cur.right)
         if cur.left:
             stack.append(cur.left)
 
+    return record
 
-def binary_tree_mid_order_recursion(node):
+
+def binary_tree_mid_order_recursion(node, record=[]):
     """
     中序遍历递归，左根右
     :param node:
@@ -46,7 +49,10 @@ def binary_tree_mid_order_recursion(node):
     if node:
         binary_tree_mid_order_recursion(node.left)
         print(node.root, end=', ')
+        record.append(node.root)
         binary_tree_mid_order_recursion(node.right)
+
+    return record
 
 
 def binary_tree_mid_order_nonrecursion(node):
@@ -57,6 +63,7 @@ def binary_tree_mid_order_nonrecursion(node):
     :return:
     """
     stack = []
+    record = []
     while stack or node:
         if node:
             stack.append(node)
@@ -64,10 +71,13 @@ def binary_tree_mid_order_nonrecursion(node):
         else:
             node = stack.pop()
             print(node.root, end=', ')
+            record.append(node.root)
             node = node.right
 
+    return record
 
-def binary_tree_post_order_recursion(node):
+
+def binary_tree_post_order_recursion(node, record=[]):
     """
     后序遍历递归，左右根
     :param node:
@@ -77,6 +87,9 @@ def binary_tree_post_order_recursion(node):
         binary_tree_post_order_recursion(node.left)
         binary_tree_post_order_recursion(node.right)
         print(node.root, end=', ')
+        record.append(node.root)
+
+    return record
 
 
 def binary_tree_post_order_nonrecursion(node):
@@ -94,6 +107,7 @@ def binary_tree_post_order_nonrecursion(node):
     :return:
     """
     stack = []
+    record = []
     flag = None
     while stack or node:
         if node:
@@ -105,30 +119,37 @@ def binary_tree_post_order_nonrecursion(node):
         else:
             flag = stack.pop()
             print(flag.root, end=', ')
+            record.append(flag.root)
+
+    return record
 
 
 if __name__ == '__main__':
     node = BinaryTree(1)
-    node.left = BinaryTree(2)
-    node.left.left = BinaryTree(3)
-    node.left.right = BinaryTree(4)
-    node.right = BinaryTree(5)
-    node.right.right = BinaryTree(6)
+    node.insert_left(2)
+    node.insert_right(6)
+    node.insert_right(5)
+    left = node.left
+    left.insert_left(3)
+    left.insert_right(4)
 
     pre_node = node
     print('前序遍历：')  # 根 -> 左 -> 右，根在最前面
-    binary_tree_pre_order_nonrecursion(pre_node)
-    print('')
-    binary_tree_pre_order_recursion(pre_node)
+    record = binary_tree_pre_order_recursion(pre_node)
+    print(f'\nrecord: {record}')
+    record = binary_tree_pre_order_nonrecursion(pre_node)
+    print(f'\nrecord: {record}')
 
     mid_node = node
     print('\n中序遍历：')  # 左 -> 根 -> 右，根在中间
-    binary_tree_mid_order_recursion(mid_node)
-    print('')
-    binary_tree_mid_order_nonrecursion(mid_node)
+    record = binary_tree_mid_order_recursion(mid_node)
+    print(f'\nrecord: {record}')
+    record = binary_tree_mid_order_nonrecursion(mid_node)
+    print(f'\nrecord: {record}')
 
     post_node = node
     print('\n后序遍历：')  # 左 -> 右 -> 根，根在后面
-    binary_tree_post_order_recursion(post_node)
-    print('')
-    binary_tree_post_order_nonrecursion(post_node)
+    record = binary_tree_post_order_recursion(post_node)
+    print(f'\nrecord: {record}')
+    record = binary_tree_post_order_nonrecursion(post_node)
+    print(f'\nrecord: {record}')
