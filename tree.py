@@ -125,7 +125,28 @@ def binary_tree_post_order_nonrecursion(node):
     return record
 
 
+def create_binary_tree(array, start, end):
+    """
+    4.3 根据给定array生成平衡的binary search tree
+    :param array:
+    :param start:
+    :param end:
+    :return:
+    """
+    if end < start:
+        return None
+    mid = (start + end) // 2
+    new = BinaryTree(array[mid])
+    new.left = create_binary_tree(array, start, mid - 1)
+    new.right = create_binary_tree(array, mid + 1, end)
+
+    return new
+
+
 if __name__ == '__main__':
+    tree = create_binary_tree([1,2,5,8,11], 0, 4)
+    print(tree)
+
     node = BinaryTree(1)
     node.insert_left(2)
     node.insert_right(6)
@@ -133,6 +154,8 @@ if __name__ == '__main__':
     left = node.left
     left.insert_left(3)
     left.insert_right(4)
+
+    print(node)
 
     print('height: ', node.get_height())
     print('is_balanced: ', node.is_balanced())

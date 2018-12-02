@@ -173,6 +173,18 @@ class BinaryTree:
         self.left = None
         self.right = None
 
+    def __str__(self, level=0, flag='r'):
+        ret = "\t"*level + flag + repr(self.root) + "\n"
+        if self.left:
+            ret += self.left.__str__(level+1, 'l')
+        if self.right:
+            ret += self.right.__str__(level+1, 'r')
+
+        return ret
+
+    def __repr__(self):
+        return '<tree node representation>'
+
     def insert_left(self, new):
         if self.left is None:
             self.left = BinaryTree(new)
@@ -188,18 +200,6 @@ class BinaryTree:
             new_right = BinaryTree(new)
             new_right.right = self.right
             self.right = new_right
-
-    def get_left(self):
-        return self.left
-
-    def get_right(self):
-        return self.right
-
-    def set_root(self, obj):
-        self.root = obj
-
-    def get_root(self):
-        return self.root
 
     def get_height(self):
         """
