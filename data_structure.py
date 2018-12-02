@@ -203,7 +203,7 @@ class BinaryTree:
 
     def get_height(self):
         """
-        给定一个节点计算树的高度
+        计算树的高度
         :param node:
         :return:
         """
@@ -220,5 +220,23 @@ class BinaryTree:
             right = self.right.get_height()
             return 1 + max(left, right)
 
-    def is_balanced(self, node):
-        pass
+    def is_balanced(self):
+        """
+        计算数是否平衡，平衡的定义是任何node的左右分支高度相差小于等于1
+        :return:
+        """
+        if self.root is None:
+            return True
+        elif self.left is None and self.right is None:
+            return True
+        elif self.left is None:
+            return self.right.get_height() <= 1
+        elif self.right is None:
+            return self.left.get_height() <= 1
+        else:
+            left_height = self.left.get_height()
+            right_height = self.right.get_height()
+            if abs(left_height - right_height) > 1:
+                return False
+            else:
+                return self.left.is_balanced() and self.right.is_balanced()

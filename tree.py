@@ -114,7 +114,8 @@ def binary_tree_post_order_nonrecursion(node):
             stack.append(node)
             node = node.left
         elif stack[-1].right != flag:
-            stack.append(stack[-1].right)
+            if stack[-1].right:
+                stack.append(stack[-1].right)
             flag = None
         else:
             flag = stack.pop()
@@ -134,6 +135,7 @@ if __name__ == '__main__':
     left.insert_right(4)
 
     print('height: ', node.get_height())
+    print('is_balanced: ', node.is_balanced())
 
     pre_node = node
     print('前序遍历：')  # 根 -> 左 -> 右，根在最前面
