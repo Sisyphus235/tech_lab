@@ -168,7 +168,7 @@ class BinaryTree:
     二叉树
     """
 
-    def __init__(self, root_obj):
+    def __init__(self, root_obj=None):
         self.root = root_obj
         self.left = None
         self.right = None
@@ -200,3 +200,25 @@ class BinaryTree:
 
     def get_root(self):
         return self.root
+
+    def get_height(self):
+        """
+        给定一个节点计算树的高度
+        :param node:
+        :return:
+        """
+        if self.root is None:
+            return 0
+        elif self.left is None and self.right is None:
+            return 1
+        elif self.left is None:
+            return 1 + self.right.get_height()
+        elif self.right is None:
+            return 1 + self.left.get_height()
+        else:
+            left = self.left.get_height()
+            right = self.right.get_height()
+            return 1 + max(left, right)
+
+    def is_balanced(self, node):
+        pass

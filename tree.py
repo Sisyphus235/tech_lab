@@ -133,6 +133,8 @@ if __name__ == '__main__':
     left.insert_left(3)
     left.insert_right(4)
 
+    print('height: ', node.get_height())
+
     pre_node = node
     print('前序遍历：')  # 根 -> 左 -> 右，根在最前面
     record = binary_tree_pre_order_recursion(pre_node)
