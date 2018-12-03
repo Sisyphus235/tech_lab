@@ -108,6 +108,7 @@ def binary_tree_post_order_nonrecursion(node):
     """
     stack = []
     record = []
+
     flag = None
     while stack or node:
         if node:

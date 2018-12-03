@@ -182,8 +182,14 @@ class BinaryTree:
 
         return ret
 
-    def __repr__(self):
-        return '<tree node representation>'
+    def __repr__(self, level=0, flag='r'):
+        ret = "\t" * level + flag + repr(self.root) + "\n"
+        if self.left:
+            ret += self.left.__repr__(level + 1, 'l')
+        if self.right:
+            ret += self.right.__repr__(level + 1, 'r')
+
+        return ret
 
     def insert_left(self, new):
         if self.left is None:
