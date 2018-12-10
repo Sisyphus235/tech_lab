@@ -64,7 +64,22 @@ def compress_string(string):
     :param string:
     :return:
     """
-    pass
+    after = _count_compression(string)
+    if after >= len(string):
+        return string
+    new = ''
+    last = string[0]
+    count = 1
+    for s in string[1:]:
+        if s == last:
+            count += 1
+            continue
+        else:
+            new += f'{last}{count}'
+            last = s
+            count = 1
+    new += f'{last}{count}'
+    return new
 
 
 def _count_compression(string):
@@ -78,14 +93,44 @@ def _count_compression(string):
             count += 1
         else:
             size += 1 + len(str(count))
+            last = s
+            count = 1
 
     size += 1 + len(str(count))
 
     return size
 
 
+def is_prime(num):
+    """
+    判断一个数是否是质数
+    :param num:
+    :return:
+    """
+    from math import sqrt
+    if not isinstance(num, int) or num <= 1:
+        return False
+    if num == 2:
+        return True
+    if num % 2 == 0:
+        return False
+    for i in range(3, int(sqrt(num)) + 1, 2):
+        if num % i == 0:
+            return False
+    return True
+
+
 if __name__ == '__main__':
-    print(unique_characters('helo'))
-    print(is_permutation('hello', 'lohel'))
-    print(replace_blank('good boy go', 15))
-    print(_count_compression('hhhoello'))
+    # print(unique_characters('helo'))
+    # print(is_permutation('hello', 'lohel'))
+    # print(replace_blank('good boy go', 15))
+
+    print(_count_compression('hhhhhhhhhhoello'))
+    print(compress_string('hhhhhhhhhhoello'))
+
+    # print(is_prime(2))
+    # print(is_prime(3))
+    # print(is_prime(4))
+    # print(is_prime(5 * 7))
+    # print(is_prime(5 * 9))
+    # print(is_prime(97))
