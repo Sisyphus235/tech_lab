@@ -120,13 +120,63 @@ def is_prime(num):
     return True
 
 
+def rotate_array(array):
+    """
+    原位旋转n * n矩阵，1.6
+    :param array:
+    :return:
+    """
+    layer = len(array)
+    for i in range(layer // 2):
+        first = i
+        last = layer - 1 - i
+        for j in range(first, last):
+            offset = j - first
+            top = array[first][j]  # 获取顶层元素
+            array[first][j] = array[last - offset][first]  # 左侧上移
+            array[last - offset][first] = array[last][last - offset]  # 下侧左移
+            array[last][last - offset] = array[j][last]  # 右侧下移
+            array[j][last] = top  # 上侧右移
+
+    return array
+
+
+def set_zero(array):
+    """
+    如果矩阵中有0，则所在行和列都为0，1.7
+    :param array:
+    :return:
+    """
+    row, col = [], []
+    for i in range(len(array)):
+        for j in range(len(array[0])):
+            if array[i][j] == 0:
+                row.append(i)
+                col.append(j)
+    for i in range(len(array)):
+        for j in range(len(array[0])):
+            if i in row or j in col:
+                array[i][j] = 0
+    return array
+
+
 if __name__ == '__main__':
+    print(set_zero([[1, 1, 1, 1, 1],
+                    [2, 2, 0, 2, 2],
+                    [3, 3, 3, 3, 3],
+                    [4, 4, 4, 4, 4],
+                    [5, 5, 5, 5, 5]]))
+    # print(rotate_array([[1, 1, 1, 1, 1],
+    #                     [2, 2, 2, 2, 2],
+    #                     [3, 3, 3, 3, 3],
+    #                     [4, 4, 4, 4, 4],
+    #                     [5, 5, 5, 5, 5]]))
     # print(unique_characters('helo'))
     # print(is_permutation('hello', 'lohel'))
     # print(replace_blank('good boy go', 15))
 
-    print(_count_compression('hhhhhhhhhhoello'))
-    print(compress_string('hhhhhhhhhhoello'))
+    # print(_count_compression('hhhhhhhhhhoello'))
+    # print(compress_string('hhhhhhhhhhoello'))
 
     # print(is_prime(2))
     # print(is_prime(3))
