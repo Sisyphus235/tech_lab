@@ -5,6 +5,50 @@ import time
 from data_structure import LinkedList
 
 
+def remove_dup(linkedlist):
+    """
+    不使用buffer删除链表中重复值，2.1
+    :param linkedlist:
+    :return:
+    """
+    if not linkedlist.head:
+        return linkedlist
+    cur = linkedlist.head
+    while cur:
+        check = cur
+        while check.next:
+            if check.next.val == cur.val:
+                check.next = check.next.next
+            else:
+                check = check.next
+        cur = cur.next
+    return linkedlist
+
+
+def k2last(linkedlist, k):
+    """
+    查找倒数第K个到最后一个节点的value array
+    :param linkedlist:
+    :param k:
+    :return:
+    """
+    rtn = []
+    second = linkedlist.head
+    while k > 0:
+        if not second:
+            return "not enough nodes"
+        second = second.next
+        k -= 1
+    first = linkedlist.head
+    while second:
+        first = first.next
+        second = second.next
+    while first:
+        rtn.append(first.val)
+        first = first.next
+    return rtn
+
+
 class AnimalShelter:
     """
     3.7, 用链表模仿宠物收容所
@@ -38,15 +82,25 @@ class AnimalShelter:
 
 
 if __name__ == '__main__':
-    shelter = AnimalShelter()
-    shelter.add_dog('d1')
-    shelter.add_cat('c1')
-    shelter.add_cat('c2')
-    shelter.add_cat('c3')
-    shelter.add_dog('d2')
-    shelter.add_dog('d3')
-    print(shelter.adopt_cat())
-    print(shelter.adopt_any())
-    print(shelter.adopt_dog())
-    shelter.cats.print_list()
-    shelter.dogs.print_list()
+    linkedlist = LinkedList()
+    linkedlist.init_list([2, 4, 1, 3, 1, 2, 1, 3])
+    linkedlist.print_list()
+    print(k2last(linkedlist, 7))
+
+    # linkedlist = LinkedList()
+    # linkedlist.init_list([2, 4, 1, 3, 1, 2, 1, 3])
+    # linkedlist.print_list()
+    # remove_dup(linkedlist).print_list()
+
+    # shelter = AnimalShelter()
+    # shelter.add_dog('d1')
+    # shelter.add_cat('c1')
+    # shelter.add_cat('c2')
+    # shelter.add_cat('c3')
+    # shelter.add_dog('d2')
+    # shelter.add_dog('d3')
+    # print(shelter.adopt_cat())
+    # print(shelter.adopt_any())
+    # print(shelter.adopt_dog())
+    # shelter.cats.print_list()
+    # shelter.dogs.print_list()
