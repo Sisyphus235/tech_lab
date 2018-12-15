@@ -27,7 +27,7 @@ def remove_dup(linkedlist):
 
 def k2last(linkedlist, k):
     """
-    查找倒数第K个到最后一个节点的value array
+    查找倒数第K个到最后一个节点的value array, 2.2
     :param linkedlist:
     :param k:
     :return:
@@ -47,6 +47,61 @@ def k2last(linkedlist, k):
         rtn.append(first.val)
         first = first.next
     return rtn
+
+
+def del_middle_node(linkedlistNode):
+    """
+    只有当前点的信息，在链表中删除这个节点，2.3
+    :param linkedlistNode:
+    :return:
+    """
+    cur, next = linkedlistNode, linkedlistNode.next
+    if not next:
+        return None
+    while next:
+        cur.val = next.val
+        cur = next
+        next = next.next
+
+
+def partition_linked_list(linkedlist, val):
+    """
+    分割链表，小于val的放在前面，大于的放在后面，2.4
+    :param linkedlist:
+    :param val:
+    :return:
+    """
+    small = LinkedList()
+    small.init_list([-1])
+    small_cur = small.head
+    large = LinkedList()
+    large.init_list([-1])
+    large_cur = large.head
+
+    cur = linkedlist.head
+    if not cur:
+        return None
+    while cur:
+        cur_val = cur.val
+        if cur_val <= val:
+            small_cur.next = cur
+            small_cur = cur
+            cur = cur.next
+            small_cur.next = None
+        else:
+            large_cur.next = cur
+            large_cur = cur
+            cur = cur.next
+            large_cur.next = None
+
+    if small_cur != small.head:
+        small.head = small.head.next
+        if large_cur != large.head:
+            small_cur.next = large.head.next
+        return small
+    else:
+        large.head = large.head.next
+        return large
 
 
 class AnimalShelter:
@@ -83,9 +138,14 @@ class AnimalShelter:
 
 if __name__ == '__main__':
     linkedlist = LinkedList()
-    linkedlist.init_list([2, 4, 1, 3, 1, 2, 1, 3])
+    linkedlist.init_list([3, 4, 1, 3, 1, 2, 1, 3])
     linkedlist.print_list()
-    print(k2last(linkedlist, 7))
+    partition_linked_list(linkedlist, 3).print_list()
+
+    # linkedlist = LinkedList()
+    # linkedlist.init_list([2, 4, 1, 3, 1, 2, 1, 3])
+    # linkedlist.print_list()
+    # print(k2last(linkedlist, 7))
 
     # linkedlist = LinkedList()
     # linkedlist.init_list([2, 4, 1, 3, 1, 2, 1, 3])
