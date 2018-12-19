@@ -104,6 +104,37 @@ def partition_linked_list(linkedlist, val):
         return large
 
 
+def linked_list_sum1(l1, l2):
+    """
+    计算两个链表的加和，各位在前，2.5
+    :param l1:
+    :param l2:
+    :return:
+    """
+    result = LinkedList()
+    buff = 0
+    cur_l1 = l1.head
+    cur_l2 = l2.head
+    while cur_l1 or cur_l2:
+        v1, v2 = 0, 0
+        if cur_l1:
+            v1 = cur_l1.val
+        if cur_l2:
+            v2 = cur_l2.val
+        total = v1 + v2 + buff
+        if total > 9:
+            buff = 1
+            total -= 10
+        else:
+            buff = 0
+        result.add_last(total)
+        if cur_l1:
+            cur_l1 = cur_l1.next
+        if cur_l2:
+            cur_l2 = cur_l2.next
+    return result
+
+
 class AnimalShelter:
     """
     3.7, 用链表模仿宠物收容所
@@ -137,10 +168,16 @@ class AnimalShelter:
 
 
 if __name__ == '__main__':
-    linkedlist = LinkedList()
-    linkedlist.init_list([3, 4, 1, 3, 1, 2, 1, 3])
-    linkedlist.print_list()
-    partition_linked_list(linkedlist, 3).print_list()
+    l1 = LinkedList()
+    l1.init_list([2, 7, 4])
+    l2 = LinkedList()
+    l2.init_list([9, 2, 1, 7, 9])
+    linked_list_sum1(l1, l2).print_list()
+
+    # linkedlist = LinkedList()
+    # linkedlist.init_list([3, 4, 1, 3, 1, 2, 1, 3])
+    # linkedlist.print_list()
+    # partition_linked_list(linkedlist, 3).print_list()
 
     # linkedlist = LinkedList()
     # linkedlist.init_list([2, 4, 1, 3, 1, 2, 1, 3])
