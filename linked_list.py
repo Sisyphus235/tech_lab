@@ -2,7 +2,7 @@
 
 
 import time
-from data_structure import LinkedList
+from data_structure import LinkedList, LinkedListNode
 
 
 def remove_dup(linkedlist):
@@ -106,7 +106,7 @@ def partition_linked_list(linkedlist, val):
 
 def linked_list_sum1(l1, l2):
     """
-    计算两个链表的加和，各位在前，2.5
+    计算两个单向链表的加和，个位在前，2.5
     :param l1:
     :param l2:
     :return:
@@ -133,6 +133,103 @@ def linked_list_sum1(l1, l2):
         if cur_l2:
             cur_l2 = cur_l2.next
     return result
+
+
+def linked_list_sum2(l1, l2):
+    """
+    计算两个单向链表的加和，个位在后，2.5
+    :param l1:
+    :param l2:
+    :return:
+    """
+    # filter input
+    count = 0
+    point1, point2 = l1.head, l2.head
+    if not point2 and not point1:
+        return
+    if not point1:
+        return l2
+    if not point2:
+        return l1
+
+    # padding shorter list
+    shorter = None
+    while point1 or point2:
+        if point1 and point2:
+            point1 = point1.next
+            point2 = point2.next
+            continue
+        count += 1
+        point1 = point1.next if point1 else None
+        point2 = point2.next if point2 else None
+        if shorter:
+            continue
+        elif point1:
+            shorter = l2
+        else:
+            shorter = l1
+
+    if shorter:
+        while count != 0:
+            zero = LinkedListNode(0)
+            zero.next = shorter.head
+            shorter.head = zero
+            count -= 1
+
+    # linklists add
+    rsp = LinkedList()
+    rsp.init_list([0])
+    rsp_point = rsp.head
+    point1, point2 = l1.head, l2.head
+    total = point1.val + point2.val
+    if total > 9:
+        rsp.head.val = 1
+        rsp.head.next = LinkedListNode(total - 10)
+    else:
+        rsp.head.next = LinkedListNode(total)
+
+    rsp_point = rsp_point.next
+
+    while point1.next:
+        total = point1.next.val + point2.next.val
+        if total > 9:
+            rsp_point.next = LinkedListNode(total - 10)
+            rsp_point.val += 1
+        else:
+            rsp_point.next = LinkedListNode(total)
+        point1 = point1.next
+        point2 = point2.next
+        rsp_point = rsp_point.next
+
+    # trim rsp
+    point = rsp.head
+    update = []
+    while point:
+        if point.val < 10:
+            flag = True if point.val == 9 else False
+            update.append([0, flag])
+        else:
+            flag = False
+            point.val -= 10
+            update.append([0, flag])
+            start = -2
+            while update[start][1] and abs(start) <= len(update):
+                update[start][0] += 1
+                update[start][1] = False
+                start -= 1
+            update[start][0] += 1
+        point = point.next
+
+    count = 0
+    point = rsp.head
+    while point:
+        point.val += update[count][0]
+        if point.val > 9:
+            point.val -= 10
+        count += 1
+        point = point.next
+
+    return rsp
 
 
 class AnimalShelter:
@@ -169,10 +266,18 @@ class AnimalShelter:
 
 if __name__ == '__main__':
     l1 = LinkedList()
+    l1.init_list([1, 2, 3, 4])
+    l2 = LinkedList()
+    l2.init_list([3, 8, 7, 6, 6])
+    linked_list_sum2(l1, l2).print_list()
+
+    l1 = LinkedList()
     l1.init_list([2, 7, 4])
     l2 = LinkedList()
     l2.init_list([9, 2, 1, 7, 9])
-    linked_list_sum1(l1, l2).print_list()
+    linked_list_sum2(l1, l2).print_list()
+
+    # linked_list_sum1(l1, l2).print_list()
 
     # linkedlist = LinkedList()
     # linkedlist.init_list([3, 4, 1, 3, 1, 2, 1, 3])
