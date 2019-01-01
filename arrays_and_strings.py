@@ -160,12 +160,40 @@ def set_zero(array):
     return array
 
 
+def two_sum(nums: list, target: int) -> list:
+    """
+    输入一个数组和一个目标值，返回加和是目标值的数组中的两个元素的index值数组，leetcode 1
+    O(n)
+    :param nums:
+    :param target:
+    :return:
+    """
+    record = {}
+    for i in range(len(nums)):
+        if target - nums[i] in record:
+            return [record[target - nums[i]], i]
+        record[nums[i]] = i
+    return []
+
+
+def three_sum(nums: list) -> list:
+    """
+    输入一个数组，返回加和是0的数组中的三个元素的index值数组，leetcode 15
+    :param nums:
+    :param target:
+    :return:
+    """
+    
+
+
 if __name__ == '__main__':
-    print(set_zero([[1, 1, 1, 1, 1],
-                    [2, 2, 0, 2, 2],
-                    [3, 3, 3, 3, 3],
-                    [4, 4, 4, 4, 4],
-                    [5, 5, 5, 5, 5]]))
+    print(two_sum([2, 7, 11, 15], 9))
+
+    # print(set_zero([[1, 1, 1, 1, 1],
+    #                 [2, 2, 0, 2, 2],
+    #                 [3, 3, 3, 3, 3],
+    #                 [4, 4, 4, 4, 4],
+    #                 [5, 5, 5, 5, 5]]))
     # print(rotate_array([[1, 1, 1, 1, 1],
     #                     [2, 2, 2, 2, 2],
     #                     [3, 3, 3, 3, 3],
