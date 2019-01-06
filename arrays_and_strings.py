@@ -178,16 +178,38 @@ def two_sum(nums: list, target: int) -> list:
 
 def three_sum(nums: list) -> list:
     """
-    输入一个数组，返回加和是0的数组中的三个元素的index值数组，leetcode 15
+    输入一个数组，返回加和是0的数组中的三个元素组合，leetcode 15
     :param nums:
     :param target:
     :return:
     """
-    
+    n = len(nums)
+    nums.sort()
+    ans = []
+    for i in range(n):
+        if i > 0 and nums[i] == nums[i - 1]:
+            continue
+        L, R = i + 1, n - 1
+        while L < R:
+            temp = nums[i] + nums[L] + nums[R]
+            if temp == 0:
+                ans.append([nums[i], nums[L], nums[R]])
+                L += 1
+                R -= 1
+                while L < R and nums[L] == nums[L - 1]:
+                    L += 1
+                while R > L and nums[R] == nums[R + 1]:
+                    R -= 1
+            elif temp > 0:
+                R -= 1
+            else:
+                L += 1
+    return ans
 
 
 if __name__ == '__main__':
-    print(two_sum([2, 7, 11, 15], 9))
+    print(three_sum([-1, 0, 1, 2, -1, -4]))
+    # print(two_sum([2, 7, 11, 15], 9))
 
     # print(set_zero([[1, 1, 1, 1, 1],
     #                 [2, 2, 0, 2, 2],
