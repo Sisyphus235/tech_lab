@@ -35,8 +35,8 @@ def bisection_insertion(array):
     """
     1.左起为默认值
     2.从第二位循环到最后一位做直接插入
-    3.从每一位的左侧通过二分查找找到比他小的值
-    4.每一位的直接插入是与左侧已排序部分中值做比较，停止条件是比左侧大或者到达队列第一位
+    3.从每一位的左侧通过二分查找找到比他小的值的位置
+    4.从当前位置到标记位置依次交换值
     :param array:
     :return:
     """
@@ -54,6 +54,34 @@ def bisection_insertion(array):
         for j in range(i, left, -1):
             array[j - 1], array[j] = array[j], array[j - 1]
     return array
+
+
+## 1.3 希尔插入shell
+
+def shell_insertion(array):
+    """
+
+    :param array:
+    :return:
+    """
+    pass
+
+
+# 2. 选择排序
+
+## 2.1 直接选择排序
+
+## 2.2 堆排序
+
+# 3. 交换排序
+
+## 3.1 冒泡排序
+
+## 3.2 快速排序
+
+# 4. 归并排序
+
+# 5. 基数排序
 
 
 if __name__ == '__main__':
