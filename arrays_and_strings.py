@@ -162,8 +162,7 @@ def set_zero(array):
 
 def two_sum(nums: list, target: int) -> list:
     """
-    输入一个数组和一个目标值，返回加和是目标值的数组中的两个元素的index值数组，leetcode 1
-    O(n)
+    leetcode 1
     :param nums:
     :param target:
     :return:
@@ -173,6 +172,26 @@ def two_sum(nums: list, target: int) -> list:
         if target - nums[i] in record:
             return [record[target - nums[i]], i]
         record[nums[i]] = i
+    return []
+
+
+def sorted_two_sum(numbers: list, target: int) -> list:
+    """
+    leetcode 167
+    :param numbers:
+    :param target:
+    :return:
+    """
+    start = 0
+    end = len(numbers) - 1
+    while start < end:
+        current_sum = numbers[start] + numbers[end]
+        if current_sum == target:
+            return [start + 1, end + 1]
+        elif current_sum < target:
+            start += 1
+        else:
+            end -= 1
     return []
 
 
@@ -208,7 +227,8 @@ def three_sum(nums: list) -> list:
 
 
 if __name__ == '__main__':
-    print(three_sum([-1, 0, 1, 2, -1, -4]))
+    print(sorted_two_sum([2, 7, 11, 15], 9))
+    # print(three_sum([-1, 0, 1, 2, -1, -4]))
     # print(two_sum([2, 7, 11, 15], 9))
 
     # print(set_zero([[1, 1, 1, 1, 1],
