@@ -1,5 +1,7 @@
 # -*- coding: utf8 -*-
 
+from collections import defaultdict
+
 
 def unique_characters(string):
     """
@@ -226,8 +228,36 @@ def three_sum(nums: list) -> list:
     return ans
 
 
+class twoSum3:
+    """
+    Leetcode 170
+    """
+
+    def __init__(self):
+        self.numbers = defaultdict(int)
+
+    def add(self, number):
+        self.numbers[number] += 1
+
+    def find(self, target):
+        for one in self.numbers.keys():
+            other = target - one
+            if other == one and self.numbers[one] < 2:
+                continue
+            if other not in self.numbers:
+                continue
+            return True
+        return False
+
+
 if __name__ == '__main__':
-    print(sorted_two_sum([2, 7, 11, 15], 9))
+    two_sum_3 = twoSum3()
+    two_sum_3.add(3)
+    two_sum_3.add(3)
+    print(two_sum_3.find(6))
+    print(two_sum_3.find(4))
+
+    # print(sorted_two_sum([2, 7, 11, 15], 9))
     # print(three_sum([-1, 0, 1, 2, -1, -4]))
     # print(two_sum([2, 7, 11, 15], 9))
 
