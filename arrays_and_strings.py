@@ -1,6 +1,7 @@
 # -*- coding: utf8 -*-
 
 from collections import defaultdict
+from typing import List
 
 
 def unique_characters(string):
@@ -197,37 +198,6 @@ def sorted_two_sum(numbers: list, target: int) -> list:
     return []
 
 
-def three_sum(nums: list) -> list:
-    """
-    输入一个数组，返回加和是0的数组中的三个元素组合，leetcode 15
-    :param nums:
-    :param target:
-    :return:
-    """
-    n = len(nums)
-    nums.sort()
-    ans = []
-    for i in range(n):
-        if i > 0 and nums[i] == nums[i - 1]:
-            continue
-        L, R = i + 1, n - 1
-        while L < R:
-            temp = nums[i] + nums[L] + nums[R]
-            if temp == 0:
-                ans.append([nums[i], nums[L], nums[R]])
-                L += 1
-                R -= 1
-                while L < R and nums[L] == nums[L - 1]:
-                    L += 1
-                while R > L and nums[R] == nums[R + 1]:
-                    R -= 1
-            elif temp > 0:
-                R -= 1
-            else:
-                L += 1
-    return ans
-
-
 class twoSum3:
     """
     Leetcode 170
@@ -248,6 +218,40 @@ class twoSum3:
                 continue
             return True
         return False
+
+
+def three_sum(nums: List[int]) -> List[List[int]]:
+    """
+    leetcode 15
+    :param nums:
+    :return:
+    """
+    length = len(nums)
+    nums.sort()
+    response = []
+    for i in range(length)[:-2]:
+        if i == 0 or nums[i] != nums[i - 1]:
+            target = 0 - nums[i]
+            start, end = i + 1, length -1
+            while start < end:
+                if nums[start] > target // 2 or nums[end] < target // 2:
+                    break
+                current_sum = nums[start] + nums[end]
+                if current_sum == target:
+                    response.append([nums[i], nums[start], nums[end]])
+                    while start < end and nums[start] == nums[start + 1]:
+                        start += 1
+                    while start < end and nums[end] == nums[end - 1]:
+                        end -= 1
+                    start += 1
+                    end -= 1
+                elif current_sum < target:
+                    start += 1
+                else:
+                    end -= 1
+
+    return response
+
 
 
 if __name__ == '__main__':
