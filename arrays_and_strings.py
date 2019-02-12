@@ -232,7 +232,7 @@ def three_sum(nums: List[int]) -> List[List[int]]:
     for i in range(length)[:-2]:
         if i == 0 or nums[i] != nums[i - 1]:
             target = 0 - nums[i]
-            start, end = i + 1, length -1
+            start, end = i + 1, length - 1
             while start < end:
                 if nums[start] > target // 2 or nums[end] < target // 2:
                     break
@@ -253,13 +253,42 @@ def three_sum(nums: List[int]) -> List[List[int]]:
     return response
 
 
+def three_sum_closest(nums: List[int], target: int) -> int:
+    """
+    leetcode 16
+    :param nums:
+    :param target:
+    :return:
+    """
+    import sys
+
+    length = len(nums)
+    record = [sys.maxsize, 0]
+    nums.sort()
+    for i in range(length)[:-2]:
+        start, end = i + 1, length - 1
+        while start < end:
+            current_sum = nums[i] + nums[start] + nums[end]
+            diff = abs(target - current_sum)
+            if diff < record[0]:
+                record = [diff, current_sum]
+            if current_sum < target:
+                start += 1
+            else:
+                end -= 1
+    return record[1]
+
 
 if __name__ == '__main__':
-    two_sum_3 = twoSum3()
-    two_sum_3.add(3)
-    two_sum_3.add(3)
-    print(two_sum_3.find(6))
-    print(two_sum_3.find(4))
+    nums = [-1, 2, 1, -4]
+    target = 1
+    print(three_sum_closest(nums, target))
+
+    # two_sum_3 = twoSum3()
+    # two_sum_3.add(3)
+    # two_sum_3.add(3)
+    # print(two_sum_3.find(6))
+    # print(two_sum_3.find(4))
 
     # print(sorted_two_sum([2, 7, 11, 15], 9))
     # print(three_sum([-1, 0, 1, 2, -1, -4]))
