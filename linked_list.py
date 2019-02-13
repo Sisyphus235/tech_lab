@@ -264,18 +264,47 @@ class AnimalShelter:
         return self.cats.remove_first()
 
 
-if __name__ == '__main__':
-    l1 = LinkedList()
-    l1.init_list([1, 2, 3, 4])
-    l2 = LinkedList()
-    l2.init_list([3, 8, 7, 6, 6])
-    linked_list_sum2(l1, l2).print_list()
+def reverse_linked_list(linked_list: LinkedList) -> LinkedList:
+    """
+    链表反转
+    pre - cur - flag - node - node
+    :param linked_list:
+    :return:
+    """
+    # 前面的指针
+    pre = linked_list.head
+    if not pre:
+        return None
+    cur = pre.next
+    pre.next = None
+    while cur:
+        temp = cur
+        cur = cur.next
+        temp.next = pre
+        pre = temp
+    linked_list.head = temp
 
-    l1 = LinkedList()
-    l1.init_list([2, 7, 4])
-    l2 = LinkedList()
-    l2.init_list([9, 2, 1, 7, 9])
-    linked_list_sum2(l1, l2).print_list()
+    return linked_list
+
+
+if __name__ == '__main__':
+    l = LinkedList()
+    l.init_list([1, 2, 3, 4, 5])
+    l.print_list()
+    revert = revert_linked_list(l)
+    revert.print_list()
+
+    # l1 = LinkedList()
+    # l1.init_list([1, 2, 3, 4])
+    # l2 = LinkedList()
+    # l2.init_list([3, 8, 7, 6, 6])
+    # linked_list_sum2(l1, l2).print_list()
+    #
+    # l1 = LinkedList()
+    # l1.init_list([2, 7, 4])
+    # l2 = LinkedList()
+    # l2.init_list([9, 2, 1, 7, 9])
+    # linked_list_sum2(l1, l2).print_list()
 
     # linked_list_sum1(l1, l2).print_list()
 
