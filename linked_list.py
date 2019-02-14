@@ -287,12 +287,57 @@ def reverse_linked_list(linked_list: LinkedList) -> LinkedList:
     return linked_list
 
 
+def sort_linked_list(linked_list: LinkedList) -> LinkedList:
+    """
+    奇数节点升序，偶数节点降序，返回升序链表
+    解法：1.生成奇偶两个新链表；2.偶数链表反转；3.奇偶链表合并新链表
+    :param linked_list:
+    :return:
+    """
+    left_list = LinkedList()
+    right_list = LinkedList()
+    cur = linked_list.head
+    i = 0
+    while cur:
+        i += 1
+        if i % 2:
+            left_list.add_last(cur.val)
+        else:
+            right_list.add_last(cur.val)
+        cur = cur.next
+    right_list = reverse_linked_list(right_list)
+    left_pointer = left_list.head
+    right_pointer = right_list.head
+    merge_list = LinkedList()
+    while left_pointer or right_pointer:
+        if left_pointer and right_pointer:
+            if left_pointer.val <= right_pointer.val:
+                merge_list.add_last(left_pointer.val)
+                left_pointer = left_pointer.next
+            else:
+                merge_list.add_last(right_pointer.val)
+                right_pointer = right_pointer.next
+        elif left_pointer:
+            merge_list.add_last(left_pointer.val)
+            left_pointer = left_pointer.next
+        else:
+            merge_list.add_last(right_pointer.val)
+            right_pointer = right_pointer.next
+    return merge_list
+
+
 if __name__ == '__main__':
     l = LinkedList()
-    l.init_list([1, 2, 3, 4, 5])
+    l.init_list([1, 7, 2, 6, 7, 2, 11])
     l.print_list()
-    revert = revert_linked_list(l)
-    revert.print_list()
+    sort = sort_linked_list(l)
+    sort.print_list()
+
+    # l = LinkedList()
+    # l.init_list([1, 2, 3, 4, 5])
+    # l.print_list()
+    # revert = reverse_linked_list(l)
+    # revert.print_list()
 
     # l1 = LinkedList()
     # l1.init_list([1, 2, 3, 4])
