@@ -78,6 +78,46 @@ def shell_insertion(array):
 ## 3.1 冒泡排序
 
 ## 3.2 快速排序
+def quick_sort_recusive(array: list, left: int, right: int):
+    if left < right:
+        q = partition(array, left, right)
+        quick_sort_recusive(array, left, q - 1)
+        quick_sort_recusive(array, q + 1, right)
+
+
+def partition(array: list, left: int, right: int):
+    x = array[right]
+    i = left - 1
+    for j in range(left, right):
+        if array[j] <= x:
+            i += 1
+            array[i], array[j] = array[j], array[i]
+    array[i + 1], array[right] = array[right], array[i + 1]
+    return i + 1
+
+
+def quick_sort_iterative(array: list):
+    left = 0
+    right = len(array) - 1
+    if left >= right:
+        return
+    stack = []
+    stack.append(left)
+    stack.append(right)
+    while stack:
+        low = stack.pop(0)
+        high = stack.pop(0)
+        if high - low <= 0:
+            continue
+        x = array[high]
+        i = low - 1
+        for j in range(low, high):
+            if array[j] <= x:
+                i += 1
+                array[i], array[j] = array[j], array[i]
+        array[i + 1], array[high] = array[high], array[i + 1]
+        stack.extend([low, i, i + 2, high])
+
 
 # 4. 归并排序
 
@@ -85,6 +125,7 @@ def shell_insertion(array):
 
 
 if __name__ == '__main__':
+    print(quick_sort_iterative([3, 2, 1, 4, 9, 6, 2, 5]))
     print(pure_insertion([3, 2, 1, 4, 9, 6, 2, 5]))
     print(pure_insertion([3]))
     print(bisection_insertion([3, 2, 1, 4, 9, 6, 2, 5]))
