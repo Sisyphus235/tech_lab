@@ -78,22 +78,32 @@ def shell_insertion(array):
 ## 3.1 冒泡排序
 
 ## 3.2 快速排序
-def quick_sort_recusive(array: list, left: int, right: int):
+def quick_sort_recursive(array: list, left: int, right: int):
     if left < right:
         q = partition(array, left, right)
-        quick_sort_recusive(array, left, q - 1)
-        quick_sort_recusive(array, q + 1, right)
+        quick_sort_recursive(array, left, q - 1)
+        quick_sort_recursive(array, q + 1, right)
 
 
-def partition(array: list, left: int, right: int):
-    x = array[right]
-    i = left - 1
-    for j in range(left, right):
+def partition(array: list, low: int, high: int):
+    x = array[high]
+    i = low - 1
+    for j in range(low, high):
         if array[j] <= x:
             i += 1
             array[i], array[j] = array[j], array[i]
-    array[i + 1], array[right] = array[right], array[i + 1]
+    array[i + 1], array[high] = array[high], array[i + 1]
     return i + 1
+
+
+def findkth(array, left, right, k):
+    index = partition(array, left, right)
+    if index == k:
+        return array[index]
+    elif index < k:
+        return findkth(array, index + 1, right, k)
+    else:
+        return findkth(array, left, index - 1, k)
 
 
 def quick_sort_iterative(array: list):
@@ -125,7 +135,11 @@ def quick_sort_iterative(array: list):
 
 
 if __name__ == '__main__':
-    print(quick_sort_iterative([3, 2, 1, 4, 9, 6, 2, 5]))
-    print(pure_insertion([3, 2, 1, 4, 9, 6, 2, 5]))
-    print(pure_insertion([3]))
-    print(bisection_insertion([3, 2, 1, 4, 9, 6, 2, 5]))
+    array = [3, 2, 1, 4, 9, 6, 2, 5]
+    print(findkth(array, 0, len(array) - 1, 2))
+    quick_sort_recursive(array, 0, len(array) - 1)
+    print(array)
+    # print(quick_sort_iterative([3, 2, 1, 4, 9, 6, 2, 5]))
+    # print(pure_insertion([3, 2, 1, 4, 9, 6, 2, 5]))
+    # print(pure_insertion([3]))
+    # print(bisection_insertion([3, 2, 1, 4, 9, 6, 2, 5]))
