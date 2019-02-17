@@ -279,10 +279,38 @@ def three_sum_closest(nums: List[int], target: int) -> int:
     return record[1]
 
 
+def three_sum_smaller(nums: List[int], target: int) -> int:
+    """
+    leetcode 259
+    :param nums:
+    :param target:
+    :return:
+    """
+    nums.sort()
+    count = 0
+    length = len(nums)
+    for i in range(length)[:-2]:
+        if nums[i] >= target:
+            break
+        left, right = i + 1, length - 1
+        while left < right:
+            current_sum = nums[i] + nums[left] + nums[right]
+            if current_sum >= target:
+                right -= 1
+            else:
+                count += right - left
+                break
+    return count
+
+
 if __name__ == '__main__':
-    nums = [-1, 2, 1, -4]
-    target = 1
-    print(three_sum_closest(nums, target))
+    nums = [-2, 0, 1, 3]
+    target = 2
+    print(three_sum_smaller(nums, target))
+
+    # nums = [-1, 2, 1, -4]
+    # target = 1
+    # print(three_sum_closest(nums, target))
 
     # two_sum_3 = twoSum3()
     # two_sum_3.add(3)
