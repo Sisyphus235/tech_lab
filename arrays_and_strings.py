@@ -319,6 +319,8 @@ def three_sum_with_multiplicity(nums: List[int], target: int) -> int:
             right -= 1
         return right
 
+    from collections import Counter
+
     count = 0
     bound = 10 ** 9 + 7
     record = []
@@ -343,9 +345,7 @@ def three_sum_with_multiplicity(nums: List[int], target: int) -> int:
                 else:
                     right = _skip_right(left, right)
                     right -= 1
-    element = defaultdict(int)
-    for e in nums:
-        element[e] += 1
+    element = Counter(nums)
     for a, b, c in record:
         if a == b and b == c:
             count = (count + element[a] * (element[a] - 1) * (element[a] - 2) // 6) % bound
