@@ -303,10 +303,73 @@ def three_sum_smaller(nums: List[int], target: int) -> int:
     return count
 
 
+def three_sum_with_multiplicity(nums: List[int], target: int) -> int:
+    """
+    leetcode 923
+    :return:
+    """
+
+    def _skip_left(left: int, right: int) -> int:
+        while left < right and nums[left] == nums[left + 1]:
+            left += 1
+        return left
+
+    def _skip_right(left: int, right: int) -> int:
+        while left < right and nums[right] == nums[right - 1]:
+            right -= 1
+        return right
+
+    from itertools import combinations
+    count = 0
+    record = []
+    nums.sort()
+    length = len(nums)
+    for i in range(length)[:-2]:
+        if i == 0 or nums[i] != nums[i - 1]:
+            if nums[i] * 3 > target:
+                break
+            left, right = i + 1, length - 1
+            while left < right:
+                current_sum = nums[i] + nums[left] + nums[right]
+                if current_sum == target:
+                    record.append((nums[i], nums[left], nums[right]))
+                    left = _skip_left(left, right)
+                    right = _skip_right(left, right)
+                    left += 1
+                    right -= 1
+                elif current_sum < target:
+                    left = _skip_left(left, right)
+                    left += 1
+                else:
+                    right = _skip_right(left, right)
+                    right -= 1
+    element = defaultdict(int)
+    for e in nums:
+        element[e] += 1
+    for a, b, c in record:
+        if a == b and b == c:
+            count += len(list(combinations([a] * element[a], 3)))
+        elif a == b:
+            count += len(list(combinations([a] * element[a], 2))) * element[c]
+        elif b == c:
+            count += len(list(combinations([c] * element[c], 2))) * element[a]
+        else:
+            count += element[a] * element[b] * element[c]
+
+    return count
+
+
 if __name__ == '__main__':
-    nums = [-2, 0, 1, 3]
-    target = 2
-    print(three_sum_smaller(nums, target))
+    nums = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5]
+    target = 8
+    print(three_sum_with_multiplicity(nums, target))
+    nums = [1,1,2,2,2,2]
+    target = 5
+    print(three_sum_with_multiplicity(nums, target))
+
+    # nums = [-2, 0, 1, 3]
+    # target = 2
+    # print(three_sum_smaller(nums, target))
 
     # nums = [-1, 2, 1, -4]
     # target = 1
