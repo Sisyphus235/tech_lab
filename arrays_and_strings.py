@@ -319,8 +319,8 @@ def three_sum_with_multiplicity(nums: List[int], target: int) -> int:
             right -= 1
         return right
 
-    from itertools import combinations
     count = 0
+    bound = 10 ** 9 + 7
     record = []
     nums.sort()
     length = len(nums)
@@ -348,13 +348,13 @@ def three_sum_with_multiplicity(nums: List[int], target: int) -> int:
         element[e] += 1
     for a, b, c in record:
         if a == b and b == c:
-            count += len(list(combinations([a] * element[a], 3)))
+            count = (count + element[a] * (element[a] - 1) * (element[a] - 2) // 6) % bound
         elif a == b:
-            count += len(list(combinations([a] * element[a], 2))) * element[c]
+            count = (count + element[a] * (element[a] - 1) // 2 * element[c]) % bound
         elif b == c:
-            count += len(list(combinations([c] * element[c], 2))) * element[a]
+            count = (count + element[c] * (element[c] - 1) // 2 * element[a]) % bound
         else:
-            count += element[a] * element[b] * element[c]
+            count = (count + element[a] * element[b] * element[c]) % bound
 
     return count
 
