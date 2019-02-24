@@ -388,15 +388,65 @@ def three_sum_with_multiplicity_optimize(A: List[int], target: int) -> int:
     return res
 
 
+def four_sum(nums: List, target: int):
+    """
+    LeetCode 18
+    :param nums:
+    :param target:
+    :return:
+    """
+
+    def _skip_left(left: int, right: int) -> int:
+        while left < right and nums[left] == nums[left + 1]:
+            left += 1
+        return left
+
+    def _skip_right(left: int, right: int) -> int:
+        while left < right and nums[right] == nums[right - 1]:
+            right -= 1
+        return right
+
+    length = len(nums)
+    nums.sort()
+    records = list()
+    for i in range(length)[: -3]:
+        if i == 0 or nums[i] != nums[i - 1]:
+            for j in range(i + 1, length)[: -2]:
+                if j - 1 == i or nums[j] != nums[j - 1]:
+                    left = j + 1
+                    right = length - 1
+                    while left < right:
+                        current_sum = nums[i] + nums[j] + nums[left] + nums[right]
+                        if current_sum == target:
+                            candidate = [nums[i], nums[j], nums[left], nums[right]]
+                            if candidate not in records:
+                                records.append(candidate)
+                            left = _skip_left(left, right)
+                            right = _skip_right(left, right)
+                            left += 1
+                            right -= 1
+                        elif current_sum < target:
+                            left = _skip_left(left, right)
+                            left += 1
+                        else:
+                            right = _skip_right(left, right)
+                            right -= 1
+    return records
+
+
 if __name__ == '__main__':
-    nums = [1, 1, 2, 3, 3, 4, 4, 5, 5]
-    target = 8
-    print(three_sum_with_multiplicity(nums, target))
-    print(three_sum_with_multiplicity_optimize(nums, target))
-    nums = [1, 1, 2, 2, 2, 2]
-    target = 5
-    print(three_sum_with_multiplicity(nums, target))
-    print(three_sum_with_multiplicity_optimize(nums, target))
+    nums = [1,-2,-5,-4,-3,3,3,5]
+    target = -11
+    print(four_sum(nums, target))
+
+    # nums = [1, 1, 2, 3, 3, 4, 4, 5, 5]
+    # target = 8
+    # print(three_sum_with_multiplicity(nums, target))
+    # print(three_sum_with_multiplicity_optimize(nums, target))
+    # nums = [1, 1, 2, 2, 2, 2]
+    # target = 5
+    # print(three_sum_with_multiplicity(nums, target))
+    # print(three_sum_with_multiplicity_optimize(nums, target))
 
     # nums = [-2, 0, 1, 3]
     # target = 2
