@@ -434,9 +434,38 @@ def four_sum(nums: List, target: int):
     return records
 
 
+def four_sum_advanced(nums: List, target: int):
+    from collections import defaultdict
+    nums.sort()
+    result = []
+    table = defaultdict(list)
+    for i in range(len(nums) - 1):
+        for j in range(i + 1, len(nums)):
+            is_duplicated = False
+            for [x, y] in table[nums[i] + nums[j]]:
+                if nums[x] == nums[i]:
+                    is_duplicated = True
+                    break
+            if not is_duplicated:
+                table[nums[i] + nums[j]].append([i, j])
+    ans = {}
+    for c in range(2, len(nums)):
+        for d in range(c + 1, len(nums)):
+            if target - nums[c] - nums[d] in table:
+                for [a, b] in table[target - nums[c] - nums[d]]:
+                    if b < c:
+                        quad = [nums[a], nums[b], nums[c], nums[d]]
+                        quad_hash = " ".join(str(quad))
+                        if quad_hash not in ans:
+                            ans[quad_hash] = True
+                            result.append(quad)
+    return result
+
+
 if __name__ == '__main__':
-    nums = [1,-2,-5,-4,-3,3,3,5]
+    nums = [1, -2, -5, -4, -3, 3, 3, 5]
     target = -11
+    print(four_sum_advanced(nums, target))
     print(four_sum(nums, target))
 
     # nums = [1, 1, 2, 3, 3, 4, 4, 5, 5]
