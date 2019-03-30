@@ -104,6 +104,34 @@ def partition_linked_list(linkedlist, val):
         return large
 
 
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+
+def add_two_numbers(l1: ListNode, l2: ListNode) -> ListNode:
+    l = ListNode(-1)
+    head = l
+    carry = 0
+
+    while l1 or l2 or carry:
+        total, carry = carry, 0
+        if l1:
+            total += l1.val
+            l1 = l1.next
+        if l2:
+            total += l2.val
+            l2 = l2.next
+        if total > 9:
+            total -= 10
+            carry = 1
+        l.next = ListNode(total)
+        l = l.next
+
+    return head.next
+
+
 def linked_list_sum1(l1, l2):
     """
     计算两个单向链表的加和，个位在前，2.5
