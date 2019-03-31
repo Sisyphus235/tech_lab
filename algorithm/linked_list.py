@@ -132,6 +132,34 @@ def add_two_numbers(l1: ListNode, l2: ListNode) -> ListNode:
     return head.next
 
 
+def add_two_numbers_II(l1: ListNode, l2: ListNode) -> ListNode:
+    l1_stack = []
+    while l1:
+        l1_stack.append(l1.val)
+        l1 = l1.next
+    l2_stack = []
+    while l2:
+        l2_stack.append(l2.val)
+        l2 = l2.next
+
+    carry = 0
+    head = None
+    while l1_stack or l2_stack or carry:
+        total, carry = carry, 0
+        if l1_stack:
+            total += l1_stack.pop()
+        if l2_stack:
+            total += l2_stack.pop()
+        if total > 9:
+            total -= 10
+            carry = 1
+        cur = ListNode(total)
+        cur.next = head
+        head = cur
+
+    return head
+
+
 def linked_list_sum1(l1, l2):
     """
     计算两个单向链表的加和，个位在前，2.5
@@ -355,12 +383,22 @@ def sort_linked_list(linked_list: LinkedList) -> LinkedList:
 
 
 if __name__ == '__main__':
-    l = LinkedList()
-    l.init_list([1, 7, 2, 6, 7, 2, 11])
-    l.print_list()
-    sort = sort_linked_list(l)
-    sort.print_list()
+    l1 = ListNode(7)
+    l1.next = ListNode(2)
+    l1.next.next = ListNode(4)
+    l1.next.next.next = ListNode(3)
+    l2 = ListNode(5)
+    l2.next = ListNode(6)
+    l2.next.next = ListNode(4)
+    l = add_two_numbers_II(l1, l2)
+    print(l.val, l.next.val, l.next.next.val, l.next.next.next.val)
 
+
+    # l = LinkedList()
+    # l.init_list([1, 7, 2, 6, 7, 2, 11])
+    # l.print_list()
+    # sort = sort_linked_list(l)
+    # sort.print_list()
     # l = LinkedList()
     # l.init_list([1, 2, 3, 4, 5])
     # l.print_list()
