@@ -462,12 +462,54 @@ def four_sum_advanced(nums: List, target: int):
     return result
 
 
-if __name__ == '__main__':
-    nums = [1, -2, -5, -4, -3, 3, 3, 5]
-    target = -11
-    print(four_sum_advanced(nums, target))
-    print(four_sum(nums, target))
+def longest_substring(s: str) -> int:
+    if not s:
+        return 0
+    if len(s) == 1:
+        return 1
 
+    long = 1
+    start, cur = 0, s[0]
+    for i in range(1, len(s)):
+        if s[i] not in cur:
+            cur += s[i]
+        else:
+            length = len(cur)
+            long = length if length > long else long
+            index = cur.index(s[i])
+            start += index + 1
+            cur = cur[index + 1:] + s[i]
+    long = len(cur) if len(cur) > long else long
+
+    return long
+
+
+def longest_substring_hash(s: str) -> int:
+    a = {}
+    count = 0
+    first = -1
+    for i in range(len(s)):
+        if s[i] in a and a[s[i]] > first:
+            first = a[s[i]]
+        a[s[i]] = i
+        count = max(count, (i - first))
+    return count
+
+
+if __name__ == '__main__':
+    print(longest_substring_hash("abcabcbb"))
+    print(longest_substring_hash("bbbbb"))
+    print(longest_substring_hash("pwwkew"))
+
+    print(longest_substring("abcabcbb"))
+    print(longest_substring("bbbbb"))
+    print(longest_substring("pwwkew"))
+    print(longest_substring("au"))
+
+    # nums = [1, -2, -5, -4, -3, 3, 3, 5]
+    # target = -11
+    # print(four_sum_advanced(nums, target))
+    # print(four_sum(nums, target))
     # nums = [1, 1, 2, 3, 3, 4, 4, 5, 5]
     # target = 8
     # print(three_sum_with_multiplicity(nums, target))
