@@ -1,5 +1,18 @@
 # -*- coding: utf8 -*-
 
+"""
+LeetCode Question 159.
+
+Given a string S, find the length of the longest substring T that contains at most two distinct characters.
+
+Example:
+
+```
+Given S = "eceba",
+T is "ece" which its length is 3.
+```
+"""
+
 
 def longest_substring_two(s: str) -> int:
     record = {}
