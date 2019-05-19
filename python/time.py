@@ -3,7 +3,27 @@
 import time
 import datetime
 
+ISOTIMEFORMAT = '%Y-%m-%d %H:%M:%S'
+
+
+def get_utc_time_seconds():
+    return datetime.datetime.utcnow().timestamp()
+
+
+def get_local_time_seconds():
+    return time.time()
+
+
+def seconds2string(seconds):
+    return time.ctime(seconds).format(ISOTIMEFORMAT)
+
+
 if __name__ == '__main__':
+    print(get_utc_time_seconds())
+    print(get_local_time_seconds())
+    print(seconds2string(get_utc_time_seconds()))
+    print(seconds2string(get_local_time_seconds()))
+
     time_since_epoch = time.time()
     print(f'{time_since_epoch} means seconds passed since epoch, with type float')
 
