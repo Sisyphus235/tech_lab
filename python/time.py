@@ -3,6 +3,8 @@
 import time
 import datetime
 
+from datetime import timedelta
+
 ISOTIMEFORMAT = '%Y-%m-%d %H:%M:%S'
 
 
@@ -18,11 +20,21 @@ def seconds2string(seconds):
     return time.ctime(seconds).format(ISOTIMEFORMAT)
 
 
+def make_timedelta(value):
+    if not isinstance(value, timedelta):
+        return timedelta(seconds=value)
+    return value
+
+
 if __name__ == '__main__':
+    now = get_utc_time_seconds()
     print(get_utc_time_seconds())
     print(get_local_time_seconds())
     print(seconds2string(get_utc_time_seconds()))
     print(seconds2string(get_local_time_seconds()))
+
+    print(make_timedelta(3600))
+    print(make_timedelta(now))
 
     time_since_epoch = time.time()
     print(f'{time_since_epoch} means seconds passed since epoch, with type float')
