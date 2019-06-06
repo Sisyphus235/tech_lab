@@ -25,6 +25,9 @@ class MyArray:
         for item in self._data:
             yield item
 
+    def __repr__(self):
+        return ' '.join(str(data) for data in self._data)
+
     def find(self, index: int) -> Optional:
         try:
             return self._data[index]
@@ -60,6 +63,7 @@ def test_myarray():
     array.insert(1, 3)
     array.insert(2, 5)
     array.print_all()
+    print(array)
 
 
 if __name__ == '__main__':
