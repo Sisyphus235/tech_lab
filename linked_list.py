@@ -320,29 +320,6 @@ class AnimalShelter:
         return self.cats.remove_first()
 
 
-def reverse_linked_list(linked_list: LinkedList) -> LinkedList:
-    """
-    链表反转
-    pre - cur - flag - node - node
-    :param linked_list:
-    :return:
-    """
-    # 前面的指针
-    pre = linked_list.head
-    if not pre:
-        return None
-    cur = pre.next
-    pre.next = None
-    while cur:
-        temp = cur
-        cur = cur.next
-        temp.next = pre
-        pre = temp
-    linked_list.head = temp
-
-    return linked_list
-
-
 def sort_linked_list(linked_list: LinkedList) -> LinkedList:
     """
     奇数节点升序，偶数节点降序，返回升序链表
@@ -392,7 +369,6 @@ if __name__ == '__main__':
     l2.next.next = ListNode(4)
     l = add_two_numbers_II(l1, l2)
     print(l.val, l.next.val, l.next.next.val, l.next.next.next.val)
-
 
     # l = LinkedList()
     # l.init_list([1, 7, 2, 6, 7, 2, 11])
