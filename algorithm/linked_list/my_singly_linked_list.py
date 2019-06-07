@@ -5,7 +5,7 @@ from typing import Optional
 
 
 class SinglyNode:
-    def __init__(self, value: Optional = None):
+    def __init__(self, value: Optional[int] = None):
         self.value = value
         self.next = None
 
@@ -27,7 +27,7 @@ class SinglyLinkedList:
         all_nodes = self.get_all_nodes
         return '->'.join(str(node) for node in all_nodes)
 
-    def _get_last_node(self) -> Optional:
+    def _get_last_node(self) -> Optional[int]:
         if self.head is None:
             return None
         last_node = self.head
@@ -48,7 +48,7 @@ class SinglyLinkedList:
             cur = cur.next
         return all_nodes
 
-    def insert_head(self, value: Optional) -> bool:
+    def insert_head(self, value: Optional[int]) -> bool:
         try:
             if self.is_empty:
                 self.head = SinglyNode(value)
@@ -60,7 +60,7 @@ class SinglyLinkedList:
         except RuntimeError:
             return False
 
-    def insert_tail(self, value: Optional) -> bool:
+    def insert_tail(self, value: Optional[int]) -> bool:
         try:
             last_node = self._get_last_node()
             if last_node is None:
@@ -99,7 +99,7 @@ class SinglyLinkedList:
             index -= 1
         return cur
 
-    def find_by_value(self, value: Optional) -> SinglyNode:
+    def find_by_value(self, value: Optional[int]) -> SinglyNode:
         cur = self.head
         while cur and cur.value != value:
             cur = cur.next

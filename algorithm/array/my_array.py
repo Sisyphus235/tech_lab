@@ -12,10 +12,10 @@ class MyArray:
         self._data = []
         self._capacity = capacity
 
-    def __getitem__(self, position: int) -> Optional:
+    def __getitem__(self, position: int) -> Optional[int]:
         return self._data[position]
 
-    def __setitem__(self, index: int, value: Optional):
+    def __setitem__(self, index: int, value: Optional[int]):
         self._data[index] = value
 
     def __len__(self) -> int:
@@ -28,7 +28,7 @@ class MyArray:
     def __repr__(self):
         return ' '.join(str(data) for data in self._data)
 
-    def find(self, index: int) -> Optional:
+    def find(self, index: int) -> Optional[int]:
         try:
             return self._data[index]
         except IndexError:
@@ -41,7 +41,7 @@ class MyArray:
         except IndexError:
             return False
 
-    def insert(self, index: int, value: Optional) -> bool:
+    def insert(self, index: int, value: Optional[int]) -> bool:
         if len(self) >= self._capacity:
             return False
 

@@ -2,10 +2,10 @@
 
 from typing import Optional
 
-from algorithm.linked_list.my_linked_list import SingleLinkedList, SingleNode
+from algorithm.linked_list.my_singly_linked_list import SinglyLinkedList, SinglyNode
 
 
-def reverse_single_linked_list(head: SingleNode) -> Optional:
+def reverse_single_linked_list(head: SinglyNode) -> Optional:
     """
     单链表反转，Leetcode 206
     :param head:
@@ -27,18 +27,18 @@ def reverse_single_linked_list(head: SingleNode) -> Optional:
 
 
 def test_reverse_single_linked_list():
-    single_linked_list = SingleLinkedList()
+    single_linked_list = SinglyLinkedList()
     print(f'empty: {single_linked_list.get_all_nodes}')
     assert reverse_single_linked_list(single_linked_list.head) is None
 
-    single_linked_list = SingleLinkedList()
+    single_linked_list = SinglyLinkedList()
     single_linked_list.insert_head(1)
     print(f'insert 1: {single_linked_list.get_all_nodes}')
     reverse = reverse_single_linked_list(single_linked_list.head)
     assert reverse.value == 1
     assert reverse.next is None
 
-    single_linked_list = SingleLinkedList()
+    single_linked_list = SinglyLinkedList()
     single_linked_list.insert_head(1)
     single_linked_list.insert_head(3)
     print(f'insert 3: {single_linked_list.get_all_nodes}')
@@ -47,7 +47,7 @@ def test_reverse_single_linked_list():
     assert reverse.next.value == 3
     assert reverse.next.next is None
 
-    single_linked_list = SingleLinkedList()
+    single_linked_list = SinglyLinkedList()
     single_linked_list.insert_head(1)
     single_linked_list.insert_head(3)
     single_linked_list.insert_head(5)
