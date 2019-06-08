@@ -16,6 +16,19 @@ class ArrayStack:
     def count(self):
         return len(self._data)
 
+    @property
+    def peek(self):
+        if self.count:
+            return self._data[-1]
+        return None
+
+    @property
+    def is_empty(self) -> bool:
+        return self._data == []
+
+    def clear(self):
+        self._data = []
+
     def push(self, item: Optional) -> bool:
         if self.count == self.size:
             return False
@@ -33,8 +46,14 @@ def test_array_stack():
     assert array_stack.push(3) is True
     assert array_stack.push(4) is False
     assert array_stack.pop() == 3
+    assert array_stack.count == 2
     print(array_stack)
+    array_stack.clear()
+    assert array_stack.count == 0
 
 
 if __name__ == '__main__':
     test_array_stack()
+    """
+    lc 20, 155, 232, 844, 224, 682, 496
+    """

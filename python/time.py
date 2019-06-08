@@ -15,7 +15,7 @@ def get_utc_time_seconds():
 def get_local_time_seconds():
     return time.time()
 
-
+    
 def seconds2string(seconds):
     return time.ctime(seconds).format(ISOTIMEFORMAT)
 
