@@ -5,7 +5,7 @@ from typing import Optional
 from algorithm.linked_list.my_singly_linked_list import SinglyLinkedList, SinglyNode
 
 
-def reverse_single_linked_list(head: SinglyNode) -> Optional:
+def reverse_single_linked_list(head: SinglyNode) -> Optional[SinglyNode]:
     """
     单链表反转，Leetcode 206
     :param head:
