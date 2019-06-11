@@ -6,8 +6,8 @@ from algorithm.linked_list.my_singly_linked_list import SinglyNode
 
 
 class LinkedListStack:
-    def __init__(self, size: int):
-        self.size = size
+    def __init__(self, capacity: int):
+        self.capacity = capacity
         self.count = 0
         self._top = None
 
@@ -27,7 +27,7 @@ class LinkedListStack:
         self.count = 0
 
     def push(self, item: Optional[int]) -> bool:
-        if self.count == self.size:
+        if self.count == self.capacity:
             return False
         if self.is_empty:
             self._top = SinglyNode(item)
