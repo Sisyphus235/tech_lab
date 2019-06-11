@@ -5,8 +5,8 @@ from typing import Optional
 
 class ArrayStack:
 
-    def __init__(self, size: int):
-        self.size = size
+    def __init__(self, capacity: int):
+        self.capacity = capacity
         self._data = []
 
     def __repr__(self):
@@ -30,7 +30,7 @@ class ArrayStack:
         self._data = []
 
     def push(self, item: Optional) -> bool:
-        if self.count == self.size:
+        if self.count == self.capacity:
             return False
         self._data.append(item)
         return True
