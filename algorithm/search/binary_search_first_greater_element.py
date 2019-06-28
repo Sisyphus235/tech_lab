@@ -5,6 +5,12 @@ from algorithm.sort.shell_sort import shell_sort
 
 
 def binary_search_first_greater_element(array: list, value: int) -> int:
+    """
+    search the first element whose value is greater than input value
+    :param array:
+    :param value:
+    :return:
+    """
     low = 0
     high = len(array) - 1
 
