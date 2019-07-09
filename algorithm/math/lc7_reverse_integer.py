@@ -26,8 +26,10 @@ def reverse_integer(x: int) -> int:
     max_int = 2 ** 31 - 1
     min_int = - 2 ** 31
     ret = 0
-    sign = 1 if x > 0 else -1
-    x = abs(x)
+    sign = 1
+    if x < 0:
+        sign = -1
+        x = -x
     while x:
         val = x % 10
         ret = ret * 10 + val
@@ -46,4 +48,8 @@ def test_reverse_integer():
 
 
 if __name__ == '__main__':
+    """
+    数字有正负区分的时候，用 sign = +/-1 来记录，把负数变成正数统一处理
+    while 循环，永远先记得先写修改循环判断条件的表达式
+    """
     test_reverse_integer()
