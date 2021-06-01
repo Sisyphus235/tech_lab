@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
 
 
-class ArrayTree:
+class ArrayBinaryTree:
     pass
